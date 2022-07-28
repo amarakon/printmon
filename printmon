@@ -31,13 +31,12 @@ done < <(xrandr | grep -w connected |
     sed -r "s/^([^ ]*).*\b([-0-9]+)x([-0-9]+)$OFFSET_RE.*$/\1 \2 \3 \4 \5/" |
     sort -nk4,5)
 
-# If we found a monitor, echo it out, otherwise print an error.
+# If we found a monitor, print it, otherwise print an error.
 if [ ! -z "$monitor" ]
 then
-    # echo $monitor
-    echo $monitor_index
+    printf "$monitor_index\n"
     exit 0
 else
-    echo "Couldn't find any monitor for the current window." >&2
+    printf "Couldn't find any monitor for the current window.\n" >&2
     exit 1
 fi
